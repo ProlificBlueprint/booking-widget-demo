@@ -1,0 +1,13 @@
+.active-slot {
+    background : #ad1001;
+    color: #fff;
+    font-weight: bold;
+}
+
+.list-group {
+
+}
+
+.list-group li {
+    cursor: pointer;
+}

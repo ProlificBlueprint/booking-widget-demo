@@ -15,3 +15,11 @@
   .modal-backdrop.fade {
       opacity: 0.5 !important;
   }
+
+  .form-group label {
+    display: block;
+  }
+
+  .form-group input {
+    width: 100%;
+  }

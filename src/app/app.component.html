@@ -1,41 +1,12 @@
+<div class="container">
 <div class="card" >
-    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-    <div class="card-body">
-      <h5 class="card-title">Booking Widget</h5>
-      
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let time of bookingOptions" (click)="bookTime( time)">{{ time.start | amLocal | amDateFormat: 'h:mm A' }} - {{time.end | amLocal | amDateFormat: 'h:mm A' }}</li>
-      </ul>
 
+    <img class="card-img-top" src="https://restivoeye.com/wp-content/uploads/2015/08/960x350_static_apt.jpg" alt="Card image cap">
+    <div class="card-body">
+      <p class="card-text">This was fun. Thank you for the opportunity! - Andrew Stephenson</p>
+      <ul class="list-group">
+        <li appBookingTime highlightColor="#b3e9ef" [ngClass]="{ 'active-slot' : ( selectedSlotsArray.includes(time.id) ) } " class="list-group-item" *ngFor="let time of bookingOptions" (click)="bookTime( time)">{{ time.start | amLocal | amDateFormat: 'h:mm A' }} - {{time.end | amLocal | amDateFormat: 'h:mm A' }}</li>
+      </ul>
     </div>
 </div>
-
-<!-- 
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Book </h4>
-    <p>{{ currentTimeSlot.start | amLocal | amDateFormat: 'h:mm A' }} - {{currentTimeSlot.end | amLocal | amDateFormat: 'h:mm A' }}</p>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <input [(ngModel)]="currentTimeSlot.name">
-      <input [(ngModel)]="currentTimeSlot.phone">
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-  </div>
-</ng-template> -->
-
-<!-- <button class="btn btn-lg btn-outline-primary" (click)="bookTime(content)">Launch demo modal</button> -->
-
-
-
-<!-- 
-<ng-template #content let-c="close" let-d="dismiss">
-  
-</ng-template> -->
+</div>

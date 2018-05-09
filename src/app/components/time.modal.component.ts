@@ -1,59 +1,55 @@
-// import { Component, OnInit, Input, ComponentRef } from '@angular/core';
-// // import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-// // import { IModalDialog, IModalDialogButton, IModalDialogOptions } from 'ngx-modal-dialog';
-
-// @Component({
-//   selector: 'time.modal',
-//   templateUrl: './time.modal.component.html',
-//   styleUrls: ['./time.modal.component.css']
-// })
-// export class TimeModalComponent implements OnInit {
-  
-//   @Input() name;
-//   // actionButtons: IModalDialogButton[];
-
-//   constructor() {
-//     // this.actionButtons = [
-//     //   { text: 'Close' }, // no special processing here
-//     //   { text: 'I will always close', onAction: () => true },
-//     //   { text: 'I never close', onAction: () => false }
-//     // ];
-//   }
-
-//   // dialogInit(reference: ComponentRef<IModalDialog>, options: Partial<IModalDialogOptions<any>>) {
-//   //   // no processing needed
-//   // }
-
-//   ngOnInit(){
-//     console.log('time hit')
-//   }
-
-// }
-
-
-import {Component, Input} from '@angular/core';
-
-import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup , Validators } from '@angular/forms';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { User } from './../models/user.model';
 
 @Component({
   selector: 'ngbd-modal-content',
-  template: `
-    <div class="modal-header">
-      <h4 class="modal-title">Hi there!</h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Hello, {{name}}!</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-    </div>
-  `
+  templateUrl: './time.modal.component.html',
+  styleUrls: ['./time.modal.component.css']
 })
-export class TimeModalComponent {
+export class TimeModalComponent implements OnInit {
   @Input() time;
+  UserForm : FormGroup;
+  user: User;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder ) {
+    this.user = new User();
+  }
+
+  ngOnInit(){
+    //
+    if(this.time.name){
+      this.user.name = this.time.name;
+      this.user.phone = this.time.phone;
+    }
+    //
+    this.createForm();
+  }
+
+  createForm() {
+    //
+    this.UserForm = this.fb.group({
+      name: [ this.user.name , Validators.required],
+      phone: [ this.user.phone , Validators.required]
+    });
+    //
+    this.UserForm.valueChanges.subscribe((formValues) => {
+        // console.log(formValues);
+        this.user =  formValues;
+      });
+  }
+
+
+  clear(){
+    this.user = new User();
+  }
+
+  bookTime(){
+    if( this.UserForm.valid){
+      this.activeModal.close(this.user);
+    } else {
+      this.activeModal.close(null);
+    }
+  }
 }
